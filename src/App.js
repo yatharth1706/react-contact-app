@@ -1,24 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {lazy, Suspense} from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const CreateForm = lazy(() => import('./Components/CreateForm'));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="ContactApp">
+      <h3 className="text-center mt-2">Create Contact</h3>
+      <Suspense fallback = {<div className = "text-center">Loading....</div>}>
+        <CreateForm />
+      </Suspense>
+      
     </div>
   );
 }

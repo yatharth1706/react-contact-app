@@ -1,38 +1,49 @@
-.App {
-  text-align: center;
+.createForm{
+    border : 1px solid lightgray;
+    width: 70%;
+    height: auto;
+    margin: 30px auto;
+    box-shadow: 10px 10px 50px lightgray;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.PersonalDetails{
+    width: 100%;
+    height: 100%;
+    padding: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.photographDetails{
+    width: 100%;
+    text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.profilepic{
+    width: 100px;
+    height: 100px;
+    background-color: lightgray;
+    border-radius: 50%;
+    margin: 10px auto;
 }
 
-.App-link {
-  color: #61dafb;
+.next{
+    display: flex;
+    justify-content: flex-end;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.SocialMediaDetails{
+    padding: 20px;
+}
+
+.EventDetails{
+    padding: 20px;
+}
+
+.createButton{
+    margin: 20px 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.required{
+    color: red;
 }
