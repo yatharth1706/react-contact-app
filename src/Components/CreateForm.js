@@ -53,6 +53,7 @@ class CreateForm extends Component{
         return (
             <>
                 <div className = "createForm">
+                <h3 className="text-center mt-2">Create Contact</h3>
                     <Loader />
                 {/* create three tabs and show three different forms on clicking on tabs */}
                     <Tabs defaultActiveKey = {this.state.key} onSelect={(k) => this.toggleKey(k)}>
