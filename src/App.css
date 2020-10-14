@@ -13,9 +13,64 @@
     padding: 30px;
 }
 
+.right-sidebar{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
 .projectTitle{
     display: flex;
     flex-direction: column;
+}
+
+.plus-sign {
+    width: 25px;
+    height: 25px;
+}
+
+.nav-links{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.contactLink{
+    text-decoration: none;
+    color: blue;
+}
+
+
+.contactIcon{
+    width: 25px;
+    height: 25px;
+}
+
+.image{
+    display: inline!important;
+}
+.image > img{
+    display: inline!important;
+}
+
+.createContactBtn{
+    border-radius : 10px;
+    padding: 7px;
+    display: flex;
+    justify-content: space-around;
+    width: 180px;
+    background-color: white;
+    box-shadow: 5px 4px 20px lightslategrey;
+    border :  none;
+}
+
+.iconSpan{
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+    width: 180px;
+    background-color: lightsteelblue;
+    color: blue;
 }
 .span1{
     font-size: 25px;
