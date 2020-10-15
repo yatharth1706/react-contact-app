@@ -2,7 +2,7 @@ import Axios from 'axios';
 import User from '../DataModels/User';
 import { trackPromise } from 'react-promise-tracker';
 
-export default function SaveContact(form){
+export default function UpdateContact(form, id){
     let user = new User();
     user.Name = form.Name;
     user.Email = form.Email;
@@ -19,13 +19,14 @@ export default function SaveContact(form){
     user.Events = [];
     user.SocialMedias = [];
 
-    callApi(user);
+    callApi(user, id);
 }
 
-function callApi(user){
+function callApi(user, id){
+    console.log(user);
    trackPromise(
-    Axios.post("http://localhost:8082/api/Contacts", user).then((results) => {
-        alert("Contact is Created Successfully!");
+    Axios.put(`http://localhost:8082/api/Contacts/${id}`, user).then((results) => {
+        alert("Contact is Updated Successfully!");
         window.location.href = "/";
     }).catch((e) => {
         alert(e);

@@ -1,17 +1,15 @@
 import React from 'react';
-import plus from './../Assets/plus.png';
-import contactIcon from './../Assets/contact-books.png';
 import AllContacts from './AllContacts';
 import CreateForm from './CreateForm';
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
   } from "react-router-dom"; 
+import UpdateUser from './UpdateUser';
 
 const Home = () => {
-    const [modalShow, setModalShow] = React.useState(false);
+    
 
     return (
         <Router>
@@ -27,7 +25,6 @@ const Home = () => {
                     General
                 </p>
                 <ul className = "menu-list">
-                    <li><a href="/" className = "button is-link mb-3">Contacts</a></li>
                     <li><a href="/user" className="button is-link">Create Contact</a></li>
                 </ul>
             </aside>
@@ -39,6 +36,7 @@ const Home = () => {
                 <Route exact path="/user">
                     <CreateForm />
                 </Route>
+                <Route exact path = "/user/:id" component= {UpdateUser} />
             </Switch>
             </div>
         </Router>

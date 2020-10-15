@@ -5,7 +5,6 @@ const Events = ({ handleInput }) => {
 
     return (
         <div className = "EventDetails">
-            
             <div className="panel">
                 <label>Birthday</label>
                 <input type = "date" className = "form-control" onChange = {handleInput("Birthday")}/>
@@ -14,8 +13,6 @@ const Events = ({ handleInput }) => {
                 <label>Anniversary</label>
                 <input type = "date" className = "form-control" onChange = {handleInput("Anniversary")}/>
             </div>
-
-            
         </div>
     )
 }

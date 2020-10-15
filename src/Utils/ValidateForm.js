@@ -1,6 +1,7 @@
 import SaveContact from './SaveContact';
+import UpdateContact from './UpdateContact';
 
-export default function ValidateForm(form){
+export default function ValidateForm(form, action, id){
     
     var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const contactName = form.Name;
@@ -27,7 +28,13 @@ export default function ValidateForm(form){
         return false;
     }
     else{
-        SaveContact(form);
-        return true;
+        if(action === "save"){
+            SaveContact(form);
+            return true;
+        }else{
+            console.log(form);
+            UpdateContact(form, id);
+            return true;
+        }
     }
 }

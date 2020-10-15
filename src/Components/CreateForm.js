@@ -25,11 +25,27 @@ class CreateForm extends Component{
         Anniversary : ""
     }
     
+    changeToBase64(img){
+         
+    }
 
-    handleStates = (input) => (e) => {
-        this.setState({
-            [input] : e.target.value
-        })
+    handleStates = (input) => (e) => {  
+        if(e.target.name === "photograph"){
+            var reader = new FileReader(); 
+            reader.readAsDataURL(e.target.files[0]);  
+            var that = this;
+            reader.onload = function(){ 
+                var fileContent = reader.result; 
+                that.setState({
+                    [input] : fileContent
+                }, () => console.log(that.state.Photograph));  
+            }
+            
+        }else{
+            this.setState({
+                [input] : e.target.value
+            })
+        }
     }
 
     toggleKey = (k) => {
@@ -42,7 +58,7 @@ class CreateForm extends Component{
         e.preventDefault();
         const formValues = this.state;
         //perform validation
-        ValidateForm(formValues);
+        ValidateForm(formValues,"save");
     }
 
     nextTab = (k) => (k) => {
@@ -52,8 +68,11 @@ class CreateForm extends Component{
     render(){
         return (
             <>
+            <div style={{display:"flex", justifyContent : "flex-start"}}>
+                        <a href="/"><ion-icon name="arrow-back-outline" style={{fontSize : "25px", width: "100px"}}></ion-icon></a>
+                    </div>
                 <div className = "createForm">
-                <h3 className="text-center mt-2">Create Contact</h3>
+                    
                     <Loader />
                 {/* create three tabs and show three different forms on clicking on tabs */}
                     <Tabs defaultActiveKey = {this.state.key} onSelect={(k) => this.toggleKey(k)}>

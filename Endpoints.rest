@@ -1,0 +1,48 @@
+### For getting all Contacts
+GET http://localhost:8082/api/contacts
+
+### Get a particular contact from its ID
+GET http://localhost:8082/api/contacts/2091
+
+### Create a new contact
+POST http://localhost:8082/api/contacts
+Content-Type: application/json
+Accept: application/json
+
+{
+    "Name": "Harshit",
+    "Email": "harh@gmail.com",
+    "ContactNo": "72898767833",
+    "HomeAddress": "Bangalore",
+    "OfficeAddress": "",
+    "Relationship": "Friend",
+    "Anniversary": "2020-10-14T09:36:42.848Z",
+    "Birthday": "2020-10-14T09:36:42.848Z",
+    "Facebook" : "",
+    "Linkedin" : "",
+    "Instagram" : "",
+    "Photograph" : ""
+}
+
+### Update existing contact
+PUT http://localhost:8082/api/contacts/2091
+Content-Type: application/json
+Accept: application/json
+
+{
+    "Name": "Yatharth verma",
+    "Email": "yath@gmail.com",
+    "ContactNo": "2938749823",
+    "HomeAddress": "Bangalore",
+    "OfficeAddress": "",
+    "Relationship": "Friend",
+    "Anniversary": "2020-10-14T09:36:42.848Z",
+    "Birthday": "2020-10-14T09:36:42.848Z",
+    "Facebook" : "",
+    "Linkedin" : "",
+    "Instagram" : "",
+    "Photograph" : ""
+}
+
+### Delete existing contact using its id
+DELETE http://localhost:8082/api/contacts/2091

@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
 import defaultPic from '../Assets/defaultPic.png';
 
-const PersonalDetails = ({ handleInput , next}) => {
+const PersonalDetails = ({ handleInput , next, user}) => {
     const [image, setImage] = useState(defaultPic);
 
     const setProfilePic = (e) => {
         if (e.target.files && e.target.files[0]) {
-            setImage(URL.createObjectURL(e.target.files[0]));
-            console.log(image)
+            var reader = new FileReader(); 
+            reader.readAsDataURL(e.target.files[0]);  
+            reader.onload = function () { 
+                var fileContent = reader.result; 
+                setImage(fileContent);
+            }
           }
     }
 
@@ -37,16 +41,12 @@ const PersonalDetails = ({ handleInput , next}) => {
             <input type= "text" name="homeAddress" className = "form-control" onChange = {handleInput("HomeAddress")}/>
             <label>Office Address</label>
             <input type= "text" name="officeAddress" className = "form-control" onChange = {handleInput("OfficeAddress")}/>
-
             <div className = "photographDetails">
                 <img className="profilepic" alt = "" src = {image}/><br />
                 
                 <label className="text-center">Photograph</label><br></br>
-                <input type="file" onInput = {setProfilePic} style={{margin: "0 auto", border: "1px solid lightgray"}} onChange = {handleInput("Photograph")}/>
+                <input type="file" name="photograph" onInput = {setProfilePic} style={{margin: "0 auto", border: "1px solid lightgray"}} onChange = {handleInput("Photograph")}/>
             </div>
-
-            
-            
         </div>
 
 

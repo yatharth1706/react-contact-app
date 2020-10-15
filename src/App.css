@@ -84,7 +84,7 @@
     border : 1px solid lightgray;
     width: 70%;
     height: auto;
-    margin: 30px auto;
+    margin: 0px auto;
     box-shadow: 10px 10px 50px lightgray;
 }
 
@@ -128,4 +128,37 @@
 
 .required{
     color: red;
+}
+
+.userModal{
+    width: 400px;
+    height: auto;
+    background-color: white;
+    box-shadow: -10px 10px 100000px gray;
+    color: black;
+    position: absolute;
+    top: 100px;
+    left: 340px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.user-section > p{
+    margin-bottom: 4px;
+}
+
+.close-section{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.userLabels{
+    font-size: 15px;
+    color: #361684;
+}
+
+.userProfilePic{
+    width: 120px;
+    height: 120px!important;
+    border-radius: 50%;
 }

@@ -5,7 +5,6 @@ const SocialMedia = ({ handleInput }) => {
 
     return (
         <div className = "SocialMediaDetails">
-              
             <div className="panel">
                 <label>Instagram</label>
                 <input type = "text" className = "form-control" onChange = {handleInput("Instagram")}/>
