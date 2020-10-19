@@ -23,10 +23,10 @@ export default function SaveContact(form){
 }
 
 function callApi(user){
+    
    trackPromise(
     Axios.post("http://localhost:8082/api/Contacts", user).then((results) => {
-        alert("Contact is Created Successfully!");
-        window.location.href = "/";
+        return "true";    
     }).catch((e) => {
         alert(e);
     })

@@ -123,22 +123,38 @@
 .createButton{
     margin: 20px 0px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    
+}
+
+.createButton > button {
+    width : 200px;
 }
 
 .required{
     color: red;
 }
 
+.userModalBackground, .deleteModalBackground, .updateModalBackground, .createModalBackground
+{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.1);
+}
+
 .userModal{
+    position: fixed;
     width: 400px;
     height: auto;
     background-color: white;
     box-shadow: -10px 10px 100000px gray;
     color: black;
-    position: absolute;
     top: 100px;
-    left: 340px;
+    left: 550px;
+    margin : auto;
     padding: 20px;
     border-radius: 10px;
 }
@@ -162,3 +178,89 @@
     height: 120px!important;
     border-radius: 50%;
 }
+
+.errors{
+    color: red;
+    font-size: 12px;
+    margin-top:2px;
+}
+
+.deleteModal{
+    position: fixed;
+    width: 450px;
+    height: auto;
+    top: 200px;
+    left: 500px;
+    margin: auto;
+    border: 1px solid gray;
+    background-color: white;
+    display: flex;
+    padding: 20px;
+    box-shadow: 10px 10px 100px gray;
+}
+
+
+
+.deleteImage > img{
+    width: 150px;
+    height: 150px;
+    margin-right: 80px;
+}
+
+.message{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.buttons{
+    margin-top: 10px;
+    display: flex;
+    padding: 10px;
+    padding: 0;
+}
+
+.buttons > button{
+    margin-right: 10px;
+    width: 70px;
+}
+
+.createdModal{
+    width: 680px;
+    height: auto;
+    position: absolute;
+    top: 100px;
+    left: 210px;
+    border: 1px solid gray;
+    background-color: white;
+    display: flex;
+    padding: 20px;
+    box-shadow: 10px 10px 100px gray;
+}
+
+.updatedodal{
+    width: 550px;
+    height: auto;
+    position: absolute;
+    top: 100px;
+    left: 280px;
+    border: 1px solid gray;
+    background-color: white;
+    display: flex;
+    padding: 20px;
+    box-shadow: 10px 10px 100px gray;
+}
+
+.updatedodal > .message > .buttons > a > button{
+    width: 200px;
+}
+
+.buttons > a > button{
+    margin-right: 10px;
+    width: 180px;
+}
+
+.loading {
+    background-color: #80808061;
+  }

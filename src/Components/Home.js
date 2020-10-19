@@ -7,6 +7,7 @@ import {
     Route,
   } from "react-router-dom"; 
 import UpdateUser from './UpdateUser';
+import FirebaseContext from '../Config/firebaseConfig';
 
 const Home = () => {
     

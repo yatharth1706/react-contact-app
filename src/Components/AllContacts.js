@@ -1,17 +1,26 @@
 import React from 'react';
 import Axios from 'axios';
 import UserInfoModal from './UserInfo';
+import Modal from 'react-modal';
+import DeleteConfirmationModal from './DeleteConfirmation';
+import DeleteConfirmation from './DeleteConfirmation';
+
 
 class allContacts extends React.Component{
     
     constructor(props){
         super(props);
         this.state = {
+            id: '',
             allContacts : [],
             modalShow : false,
-            user : {}
+            user : {},
+            deleteModalShow : false,
         }
+        
     }
+
+  
 
     showAllContacts(){
         Axios.get("http://localhost:8082/api/contacts").then((results) => {
@@ -25,13 +34,25 @@ class allContacts extends React.Component{
     }
 
     deleteContact(id){
-        let result = window.confirm("Are you sure you want to delete the contact?")
-        console.log(id);
-        if(result === true){
-            Axios.delete(`http://localhost:8082/api/contacts/${id}`).then(() => {
-                this.showAllContacts();
-            })
-        }
+        // let result = window.confirm("Are you sure you want to delete the contact?")
+        this.setState({id : id});
+        this.setState({deleteModalShow : true});
+
+        
+    }
+
+    confirmDelete(){
+       
+        Axios.delete(`http://localhost:8082/api/contacts/${this.state.id}`).then(() => {
+            this.showAllContacts();
+        })
+        
+        this.setState({deleteModalShow : false});
+        
+    }
+
+    hideDelete(){
+        this.setState({deleteModalShow : false});
     }
 
     setModal(val, index){
@@ -58,13 +79,15 @@ class allContacts extends React.Component{
                                 <td>{user['Name']}</td>
                                 <td>{user['ContactNo']}</td>
                                 <td>{user['Email']}</td>
-                                <td><ion-icon name="eye-outline" style={{fontSize : "20px", color:"blue"}} onClick = {() => this.setModal(true, index)}></ion-icon>&nbsp;&nbsp;<a href={"/user/" + user['ID']} style={{color: "blue"}}><ion-icon name="create-outline" style={{fontSize : "20px"}}></ion-icon></a>&nbsp;&nbsp;<ion-icon name="close-circle-outline" className="icons" style={{color: "blue", fontSize : "20px"}} onClick = {()=>this.deleteContact(user['ID'])}></ion-icon></td>
+                                <td><ion-icon name="eye-outline" style={{fontSize : "18px", color:"blue"}} onClick = {() => this.setModal(true, index)}></ion-icon>&nbsp;&nbsp;<a href={"/user/" + user['ID']} style={{color: "blue"}}><ion-icon name="create-outline" style={{fontSize : "18px"}}></ion-icon></a>&nbsp;&nbsp;<ion-icon name="trash-outline" className="icons" style={{color: "blue", fontSize : "18px"}} onClick = {()=>this.deleteContact(user['ID'])}></ion-icon></td>
                             </tr>)}
                         </tbody>
                     </table>
                     
+        
                 </main>
                 <UserInfoModal show = {this.state.modalShow} onHide = {() => this.setModal(false)} user = {this.state.user}/>
+                <DeleteConfirmation deleteModalShow = {this.state.deleteModalShow} hideDelete = {() => this.hideDelete()} confirmDelete = {() => this.confirmDelete()}/>
             </>
         )
     }

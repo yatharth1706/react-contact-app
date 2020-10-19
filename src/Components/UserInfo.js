@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import defaultPic from '../Assets/defaultPic.png';
+import ContentLoader, { rect, Facebook } from 'react-content-loader'
 
 function UserInfoModal({show, onHide, user}) {
     const [image, setImage] = useState(defaultPic);
 
+
     return (
-        <div style = {{display : show ? "block" : "none"}} className = "userModal">
+        <div className="userModalBackground" style = {{display : show ? "block" : "none"}}>
+        <div className = "userModal">
             <div className = "close-section">
                 <button className="delete" onClick = {onHide}></button>
             </div>
             <div className = "user-section container text-center">
                 <div className="text-center">
-                    <img className = "mb-4 userProfilePic" src = {user ? user['photograph'] ? user['photograph'] : image : ""} alt=""></img>
+                <img src = {user ? user['photograph'] ? user['photograph'] : image : ""} alt="" className = "loading mb-4 userProfilePic" />
                 </div>
                 <p><span className="userLabels">Name : </span>{user ? user['Name'] : ""}</p>
                 <p><span className="userLabels">ContactNo : </span>{user ? user['ContactNo'] : ""}</p>
@@ -25,6 +28,7 @@ function UserInfoModal({show, onHide, user}) {
                 <p><span className="userLabels">Birthday : </span>{user ? user['Birthday'] : ""}</p>
                 <p><span className="userLabels">Anniversary : </span>{user ? user['Anniversary'] : ""}</p>
             </div>
+      </div>
       </div>
     );
   }
