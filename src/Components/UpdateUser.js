@@ -8,6 +8,7 @@ import User from '../DataModels/User';
 import { trackPromise } from 'react-promise-tracker';
 import UpdatedModal from './UpdatedModal'; 
 import {storage} from '../Config/firebaseConfig';
+import moment from 'moment';
 
 function UpdateUser(props){
     const [modalShow, setModalShow] = useState(false);
@@ -68,7 +69,10 @@ function UpdateUser(props){
 
     useEffect(() => {
         Axios.get(`http://localhost:8082/api/contacts/${props.match.params.id}`).then((res) => {
+            res.data.Birthday = moment(res.data.Birthday).format('YYYY-MM-DD');
+            res.data.Anniversary = moment(res.data.Anniversary).format('YYYY-MM-DD');
             console.log(res.data);
+            console.log(res.data.Birthday);
             setUser(res.data);
         })
     },[])
@@ -237,15 +241,15 @@ function UpdateUser(props){
                     <div className = "SocialMediaDetails">
                         <div className="panel">
                             <label>Instagram</label>
-                            <input type = "text" className = "form-control" ref = {Instagram}/>
+                            <input type = "text" className = "form-control" ref = {Instagram} defaultValue = {user.Instagram}/>
                         </div>
                         <div className="panel">
                             <label>Linkedin</label>
-                            <input type = "text" className = "form-control" ref = {Linkedin}/>
+                            <input type = "text" className = "form-control" ref = {Linkedin} defaultValue = {user.Linkedin}/>
                         </div>
                         <div className="panel">
                             <label>Facebook</label>
-                            <input type = "text" className = "form-control" ref = {Facebook}/>
+                            <input type = "text" className = "form-control" ref = {Facebook} defaultValue = {user.Facebook}/>
                         </div>
                     </div>
                     </Tab>
@@ -253,11 +257,11 @@ function UpdateUser(props){
                         <div className = "EventDetails">
                             <div className="panel">
                                 <label>Birthday</label>
-                                <input type = "date" className = "form-control" ref = {Birthday}/>
+                                <input type = "date" className = "form-control" ref = {Birthday} defaultValue = {user.Birthday}/>
                             </div>
                             <div className="panel">
                                 <label>Anniversary</label>
-                                <input type = "date" className = "form-control" ref = {Anniversary}/>
+                                <input type = "date" className = "form-control" ref = {Anniversary} defaultValue = {user.Anniversary}/>
                             </div>
                         </div>
                     </Tab>
