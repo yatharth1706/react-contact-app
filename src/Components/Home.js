@@ -7,7 +7,7 @@ import {
     Route,
   } from "react-router-dom"; 
 import UpdateUser from './UpdateUser';
-import FirebaseContext from '../Config/firebaseConfig';
+import Groups from './Groups';
 
 const Home = () => {
     
@@ -26,7 +26,8 @@ const Home = () => {
                     General
                 </p>
                 <ul className = "menu-list">
-                    <li><a href="/user" className="button is-link">Create Contact</a></li>
+                    <li><a href="/user" className="button is-link is-active">Create Contact</a></li>
+                    <li><a href="/groups" className="btn btn-light">Groups</a></li>
                 </ul>
             </aside>
             <div className="container px-5 py-4">
@@ -36,6 +37,9 @@ const Home = () => {
                 </Route>
                 <Route exact path="/user">
                     <CreateForm />
+                </Route>
+                <Route exact path="/groups"> 
+                    <Groups />
                 </Route>
                 <Route exact path = "/user/:id" component= {UpdateUser} />
             </Switch>

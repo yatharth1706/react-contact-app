@@ -273,3 +273,7 @@
 .loading {
     background-color: #80808061;
   }
+
+.groupsData{
+    padding: 12px!important;
+}
