@@ -273,7 +273,7 @@ function UpdateUser(props){
                 <button className = "btn btn-primary" onClick = {updateContact} style={{margin:"0 auto"}}>Update Contact</button>
             </div>
 
-            <UpdatedModal modalShow = {modalShow}/>
+            <UpdatedModal modalShow = {modalShow} isGroup = {false}/>
         </>
     )
     

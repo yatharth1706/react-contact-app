@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import PersonalDetails from './PersonalDetails';
 import SocialMedia from './SocialMediaDetails';
 import Events from './EventDetails';
-import ValidateForm from '../Utils/ValidateForm';
 import Loader from './Loader';
-import SaveContact from '../Utils/SaveContact';
 import defaultPic from '../Assets/defaultPic.png';
 import CreatedModal from './CreatedModal';
 import User from './../DataModels/User';
@@ -320,7 +317,7 @@ class CreateForm extends Component{
         <div style={{color : "red"}}>{this.state.err ? this.state.err : ""}</div>
                 </div>
 
-                <CreatedModal showModal = {this.state.showModal} />
+                <CreatedModal showModal = {this.state.showModal} isGroup = {false} />
             </>
         )
     }

@@ -1,11 +1,10 @@
 import React from 'react';
 import Axios from 'axios';
 import UserInfoModal from './UserInfo';
-import Modal from 'react-modal';
-import DeleteConfirmationModal from './DeleteConfirmation';
 import DeleteConfirmation from './DeleteConfirmation';
-import plusIcon from './../Assets/plusIcon.jpg';
 import contactIcon from '../Assets/contactIcon.png';
+import ExportModal from './ExportModal';
+import ImportModal from './ImportModal';
 
 class allContacts extends React.Component{
     
@@ -17,6 +16,8 @@ class allContacts extends React.Component{
             modalShow : false,
             user : {},
             deleteModalShow : false,
+            exportModal : false,
+            importModal : false
         }
         
     }
@@ -65,9 +66,8 @@ class allContacts extends React.Component{
             <>
                 <main>
                 <h3 className = "subtitle ml-3 mb-3"><img src = {contactIcon} className = "mr-2" alt="logo"/>All Contacts </h3>      
-                <a href="/user"><span className="btn btn-sm ml-2 createContactBtn"><img src={plusIcon} alt="Create Contact" width="20px" height="20px"/>  Create contact</span></a>          
-                
-                    <table className = "table table-sm mt-2">
+                <div className = "allContactsTable">
+                <table className = "table table-sm mt-2">
                         <thead className = "thead-primary">
                             <tr>
                                 <th>Name</th>
@@ -85,11 +85,18 @@ class allContacts extends React.Component{
                             </tr>)}
                         </tbody>
                     </table>
-                    
-        
+                </div>
+                <div style={{display : "flex", justifyContent : "flex-end"}}>
+                    <span className="btn btn-sm btn-secondary mt-5 createContactBtn" onClick = {() => this.setState({exportModal : true})}>Export Contacts</span>
+                    <span className="btn btn-sm btn-dark mt-5 ml-5 createContactBtn" onClick = {() => this.setState({importModal : true})}>Import Contacts</span>
+                    <a href="/user"><span className="btn btn-sm btn-primary mt-5 ml-5 createContactBtn">Create contact</span></a>
+                </div>          
+
                 </main>
+                <ExportModal exportModal = {this.state.exportModal} allContacts = {this.state.allContacts} hideModal = {() => this.setState({exportModal : false})}/>
                 <UserInfoModal show = {this.state.modalShow} onHide = {() => this.setModal(false)} user = {this.state.user}/>
                 <DeleteConfirmation deleteModalShow = {this.state.deleteModalShow} hideDelete = {() => this.hideDelete()} confirmDelete = {() => this.confirmDelete()}/>
+                <ImportModal importModal = {this.state.importModal} hideModal = {() => this.setState({importModal : false})}/>
             </>
         )
     }

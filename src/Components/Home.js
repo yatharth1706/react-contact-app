@@ -30,9 +30,7 @@ const Home = () => {
                 <ul className = "menu-list">
                     <li><a href="/" className="button is-danger">Contacts</a></li>
                     <li><a href="/groups" className="btn btn-light">Groups</a></li>
-                    <li><a href="/groups" className="btn btn-light">Import</a></li>
-                    <li><a href="/groups" className="btn btn-light">Export</a></li>
-                    <li><a href="/groups" className="btn btn-light">Settings</a></li>
+    
                 </ul>
             </aside>
             <div className="container px-5 py-4">

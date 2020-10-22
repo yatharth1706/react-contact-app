@@ -2,6 +2,7 @@ import React from 'react';
 import GroupDetails from './GroupDetails';
 import ContactDetails from './ContactDetails';
 import Axios from 'axios';
+import CreatedModal from './CreatedModal';
 
 class CreateGroup extends React.Component{
     constructor(){
@@ -10,7 +11,8 @@ class CreateGroup extends React.Component{
             formId : 1,
             groupName : '',
             groupPhoto : '',
-            contactIds : []
+            contactIds : [],
+            showModal : false
         }
     }
     
@@ -46,8 +48,8 @@ class CreateGroup extends React.Component{
                     Axios.post(`http://localhost:8082/api/ContactsInGroup?groupId=${results.data[0].ID}&contactId=${contactID}`).catch((e) => alert(e));
                 })
                 // go back to groups page
-                alert("Group is created successfully");
-                window.location.href = "/groups";
+                this.setState({showModal : true});
+                
             })
         }).catch((e) => {
             alert(e);
@@ -56,10 +58,18 @@ class CreateGroup extends React.Component{
 
     render(){
         return(
+            <>
+            <div style={{display:"flex", justifyContent : "flex-start"}}>
+                <a href="/groups"><ion-icon name="arrow-back-outline" style={{fontSize : "25px", width: "100px"}}></ion-icon></a>
+            </div>
+            <p className = "text-center mt-5" style={{fontSize: "23px"}}>Add Group</p>
             <div className = "CreateGroupDiv">
+                
                 <GroupDetails formId = {this.state.formId} nextForm = {this.nextForm} saveGroupDetails={this.saveGroupDetails}/>
                 <ContactDetails formId = {this.state.formId} prevForm = {this.prevForm} saveContactsState={this.saveContactsState} submitForm = {this.submitForm} />
             </div>
+            <CreatedModal showModal = {this.state.showModal} isGroup = {true} />
+            </>
         )
     }
 }

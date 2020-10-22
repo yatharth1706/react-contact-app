@@ -1,8 +1,9 @@
 import React from 'react';
 import Axios from 'axios';
 import defaultPic from '../Assets/defaultPic.png';
-import {storage} from '../Config/firebaseConfig'
+import {storage} from '../Config/firebaseConfig';
 import 'firebase/storage';
+import UpdatedModal from './UpdatedModal';
 
 class UpdateGroup extends React.Component{
     constructor(props){
@@ -18,7 +19,8 @@ class UpdateGroup extends React.Component{
             contactsErr : '',
             upload : '',
             contacts : [],
-            groupId : -1
+            groupId : -1,
+            modalShow : false
         }
         console.log();
         if(this.props.match.params.groupName){
@@ -83,27 +85,7 @@ class UpdateGroup extends React.Component{
         this.setState({contactIds : contactIDS});
     }
 
-    submitForm = () => {
-        // first create the group and then save all the contacts
-        Axios.post("http://localhost:8082/api/Groups", {
-            GroupName: this.state.groupName,
-            GroupPic: this.state.groupPhoto,
-        }).then(() => {
-            // now get the id of group
-            Axios.get(`http://localhost:8082/api/Groups?groupName=${this.state.groupName}`).then((id) => {
-                // now save all contacts inside the group
-                
-                this.state.contactIds.map((contactID) => {
-                    Axios.post(`http://localhost:8082/api/ContactsInGroup?groupId=${id.data}&contactId=${contactID}`).catch((e) => alert(e));
-                })
-                // go back to groups page
-                alert("Group is created successfully");
-                window.location.href = "/groups";
-            })
-        }).catch((e) => {
-            alert(e);
-        })
-    }
+    
 
     updateGroupForm = () => {
         // first delete all the contacts from the particuarl group and then save all checked contacts in group
@@ -118,8 +100,8 @@ class UpdateGroup extends React.Component{
                     Axios.post(`http://localhost:8082/api/ContactsInGroup?groupId=${this.state.groupId}&contactId=${contactID}`).catch((e) => alert(e));
                 })
                 // go back to groups page
-                alert("Group is created successfully");
-                window.location.href = "/groups";
+                this.setState({modalShow : true});
+                
             })
         }).catch((e) => {
             alert(e);
@@ -192,6 +174,11 @@ class UpdateGroup extends React.Component{
 
     render(){
         return(
+            <>
+            <div style={{display:"flex", justifyContent : "flex-start"}}>
+                <a href="/groups"><ion-icon name="arrow-back-outline" style={{fontSize : "25px", width: "100px"}}></ion-icon></a>
+            </div>
+            <p className = "text-center mt-5" style={{fontSize: "23px"}}>Update Group</p>
             <div className = "CreateGroupDiv">
                 <div className = "GroupDetailsForm" style={{display : this.state.formId === 1 ? 'block' : 'none'}}>
                     <label>Group Name<span className = "required">*</span></label>
@@ -237,7 +224,10 @@ class UpdateGroup extends React.Component{
                         <button className = "btn btn-primary" onClick = {this.validateContactDetails}> Update Group</button>
                 </div>
             </div>
+
             </div>
+            <UpdatedModal modalShow = {this.state.modalShow} isGroup = {true}/>
+            </>
         )
     }
 }

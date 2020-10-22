@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import defaultPic from '../Assets/defaultPic.png';
-import ContentLoader, { rect, Facebook } from 'react-content-loader'
 
 function UserInfoModal({show, onHide, user}) {
     const [image, setImage] = useState(defaultPic);
