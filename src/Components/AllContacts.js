@@ -4,7 +4,8 @@ import UserInfoModal from './UserInfo';
 import Modal from 'react-modal';
 import DeleteConfirmationModal from './DeleteConfirmation';
 import DeleteConfirmation from './DeleteConfirmation';
-
+import plusIcon from './../Assets/plusIcon.jpg';
+import contactIcon from '../Assets/contactIcon.png';
 
 class allContacts extends React.Component{
     
@@ -37,7 +38,6 @@ class allContacts extends React.Component{
         // let result = window.confirm("Are you sure you want to delete the contact?")
         this.setState({id : id});
         this.setState({deleteModalShow : true});
-
         
     }
 
@@ -63,9 +63,11 @@ class allContacts extends React.Component{
     render(){
         return(
             <>
-                <h3 className = "subtitle ml-3">All Contacts</h3>
                 <main>
-                    <table className = "table table-sm">
+                <h3 className = "subtitle ml-3 mb-3"><img src = {contactIcon} className = "mr-2" alt="logo"/>All Contacts </h3>      
+                <a href="/user"><span className="btn btn-sm ml-2 createContactBtn"><img src={plusIcon} alt="Create Contact" width="20px" height="20px"/>  Create contact</span></a>          
+                
+                    <table className = "table table-sm mt-2">
                         <thead className = "thead-primary">
                             <tr>
                                 <th>Name</th>
