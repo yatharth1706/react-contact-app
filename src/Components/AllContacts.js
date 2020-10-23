@@ -5,6 +5,7 @@ import DeleteConfirmation from './DeleteConfirmation';
 import contactIcon from '../Assets/contactIcon.png';
 import ExportModal from './ExportModal';
 import ImportModal from './ImportModal';
+import defaultPic from '../Assets/userPic.png';
 
 class allContacts extends React.Component{
     
@@ -78,7 +79,7 @@ class allContacts extends React.Component{
                         </thead>
                         <tbody>
                             {this.state.allContacts.map((user, index) => <tr key = {index}>
-                                <td>{user['Name']}</td>
+                                <td><img src={user['photograph'] ? user['photograph'] : defaultPic} style={{width: "32px", height : "32px", borderRadius : "50%"}} alt="profile-pic"/>&nbsp;&nbsp;{user['Name']}</td>
                                 <td>{user['ContactNo']}</td>
                                 <td>{user['Email']}</td>
                                 <td><ion-icon name="eye-outline" style={{fontSize : "18px", color:"blue"}} onClick = {() => this.setModal(true, index)}></ion-icon>&nbsp;&nbsp;<a href={"/user/" + user['ID']} style={{color: "blue"}}><ion-icon name="create-outline" style={{fontSize : "18px"}}></ion-icon></a>&nbsp;&nbsp;<ion-icon name="trash-outline" className="icons" style={{color: "blue", fontSize : "18px"}} onClick = {()=>this.deleteContact(user['ID'])}></ion-icon></td>

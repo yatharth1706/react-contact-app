@@ -72,8 +72,8 @@ class CreateForm extends Component{
         user.Linkedin = form.Linkedin;
         user.Facebook = form.Facebook;
         user.Instagram = form.Instagram;
-        user.Birthday = form.Birthday !== "" ? form.Birthday : new Date().toJSON();
-        user.Anniversary = form.Anniversary !== "" ? form.Anniversary : new Date().toJSON();
+        user.Birthday = form.Birthday !== "" ? form.Birthday : new Date("0001-01-01").toJSON();
+        user.Anniversary = form.Anniversary !== "" ? form.Anniversary : new Date("0001-01-01").toJSON();
         user.Photograph = form.Photograph;
         user.Relationship = form.Relationship;
         user.Events = [];

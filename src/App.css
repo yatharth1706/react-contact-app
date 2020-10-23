@@ -330,6 +330,37 @@
     padding: 30px;
 }
 
+.AllImportsBackground{
+    background-color: white;
+    width: 50%;
+    height: auto;
+    margin: 100px auto;
+    z-index: 2;
+    top: 0;
+    position: absolute;
+    left: 400px;
+    box-shadow: 10px 10px 100px #868686;
+    padding: 30px;
+}
+
+.settingsBackground,.allNotificationsBack{
+    background-color: white;
+    width: 50%;
+    height: auto;
+    margin: 100px auto;
+    z-index: 2;
+    top: 0;
+    position: absolute;
+    left: 410px;
+    box-shadow: 10px 10px 100px #868686;
+    padding: 30px;
+}
+
+.allImportsTable{
+    height: 200px;
+    overflow-y : scroll;
+}
+
 .contactsInformationTable{
     height: 300px;
     overflow-y: scroll;
@@ -374,3 +405,12 @@
   ::-webkit-scrollbar-thumb {
     background: #007bff; 
   }
+
+  ::-webkit-scrollbar:horizontal {
+    height: 3px;
+  }
+
+  .previewTable{
+    overflow-x:scroll;
+    overflow-y:scroll;
+  } 
