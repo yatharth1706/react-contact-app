@@ -1,7 +1,7 @@
 import React from 'react';
-import trash from './../Assets/trash.png';
+import trash from './../../Assets/trash.png';
 
-const DeleteConfirmation = ({deleteModalShow, hideDelete, confirmDelete}) => {
+const DeleteGroupConfirmation = ({deleteModalShow, hideDelete, confirmDelete}) => {
     return (
         <div className = "deleteModalBackground" style={{visibility : deleteModalShow ? "visible" : "hidden"}}>
             <div  className = "deleteModal">
@@ -9,7 +9,7 @@ const DeleteConfirmation = ({deleteModalShow, hideDelete, confirmDelete}) => {
                     <img alt="" src={trash}/>
                 </div>
                 <div className = "message">
-                    <span>Are you sure you want to delete this contact ?</span>
+                    <span>Are you sure you want to delete this Group ?</span>
                     <div className = "buttons"><button className = "btn btn-primary" onClick = {confirmDelete}>Yes</button>
                     <button className = "btn btn-dark" onClick = {hideDelete}>No</button></div>
                 </div>
@@ -19,4 +19,4 @@ const DeleteConfirmation = ({deleteModalShow, hideDelete, confirmDelete}) => {
     )
 }
 
-export default DeleteConfirmation;
+export default DeleteGroupConfirmation;

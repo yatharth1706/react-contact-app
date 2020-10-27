@@ -1,5 +1,5 @@
 import React from 'react';
-import congrats from '../Assets/congrats.png';
+import congrats from '../../Assets/congrats.png';
 
 const UpdatedModal = ({modalShow, isGroup}) => {
     return (

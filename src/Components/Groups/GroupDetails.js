@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import defaultPic from '../Assets/defaultPic.png';
-import {storage} from '../Config/firebaseConfig'
+import defaultPic from '../../Assets/defaultPic.png';
+import {storage} from '../../Config/firebaseConfig'
 import 'firebase/storage';
 
 
@@ -10,6 +10,7 @@ const GroupDetails = ({saveGroupDetails, nextForm, formId, groupInfo}) => {
     const [GroupPhoto, setGroupPhoto] = useState(defaultPic);
     const [error, setError] = useState('');
     const [upload, setUpload] = useState('');
+    const [theme, setTheme] = useState('');
 
     const setProfilePic = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -66,15 +67,19 @@ const GroupDetails = ({saveGroupDetails, nextForm, formId, groupInfo}) => {
         }
     }
 
+    useEffect(() => {
+        setTheme(window.localStorage.getItem("theme"));
+    },[])
+
     return(
         <>
             <div className = "GroupDetailsForm" style={{display : formId === 1 ? 'block' : 'none'}}>
-                <label>Group Name<span className = "required">*</span></label>
+                <label style={{color: theme==="Dark" ? "White" : "Black"}}>Group Name<span className = "required">*</span></label>
                 <input type= "text" name= "Name" className = "form-control mb-4" onChange = {handleInput("GroupName")} defaultValue={groupInfo ? groupInfo.GroupName : ''}/>
                 {error && <p style={{fontSize: "12px", color: "red"}}>{error}</p>}
                 <div className="photographDetails">
                     <img className="profilepic" alt = "" src = {groupInfo ? groupInfo.GroupPhoto : GroupPhoto}/><br />
-                    <label className="text-center">Photograph</label><br></br>
+                    <label style={{color: theme==="Dark" ? "White" : "Black"}} className="text-center">Photograph</label><br></br>
                     <input type="file" name="photograph" onInput = {setProfilePic} style={{margin: "0 auto", border: "1px solid lightgray"}}/>
                         &nbsp;&nbsp;{upload !== '' && <span>{upload}</span>}
                 </div>

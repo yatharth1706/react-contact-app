@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import Loader from './Loader';
+import Loader from '../Loader';
 import Axios from 'axios';
-import defaultPic from '../Assets/defaultPic.png';
-import User from '../DataModels/User';
+import defaultPic from '../../Assets/defaultPic.png';
+import User from '../../DataModels/User';
 import { trackPromise } from 'react-promise-tracker';
-import UpdatedModal from './UpdatedModal'; 
-import {storage} from '../Config/firebaseConfig';
+import UpdatedModal from '../Modals/UpdatedModal'; 
+import {storage} from '../../Config/firebaseConfig';
 import moment from 'moment';
 
 function UpdateUser(props){
@@ -20,6 +20,8 @@ function UpdateUser(props){
     const [homeAddressErr, setHomeAddressErr] = useState('');
     const [contactErr, setContactErr] = useState('');
     const [upload, setUpload] = useState("");
+    const [theme, setTheme] = useState('');
+
     let Name = React.createRef();
     let ContactNo = React.createRef();
     let Email = React.createRef();
@@ -68,6 +70,7 @@ function UpdateUser(props){
     const RelationshipLists = ["Friend","Son","Daughter","Father","Mother","Brother","Sister","Uncle","Aunt","Cousin","Nephew","Niece","Husband","Wife","GrandParents","GrandChild","Other"];
 
     useEffect(() => {
+        setTheme(window.localStorage.getItem("theme"));
         Axios.get(`http://localhost:8082/api/contacts/${props.match.params.id}`).then((res) => {
             res.data.Birthday = moment(res.data.Birthday).format('YYYY-MM-DD');
             res.data.Anniversary = moment(res.data.Anniversary).format('YYYY-MM-DD');
@@ -206,32 +209,32 @@ function UpdateUser(props){
                     <div className = "PersonalDetails">
                         <div className="row">
                             <div className = "col-sm-6">
-                                <label>Name<span className = "required">*</span></label>
+                                <label style={{color: theme==="Dark" ? "White" : "Black"}}>Name<span className = "required">*</span></label>
                                 <input type= "text" name= "Name" className = "form-control" ref = {Name} defaultValue={user.Name} onChange = {(e) => handleInput(e, "Name")}/>
                                 {nameErr && <p className = "errors">{nameErr}</p>}
-                                <label>Email<span className = "required">*</span></label>
+                                <label style={{color: theme==="Dark" ? "White" : "Black"}}>Email<span className = "required">*</span></label>
                                 <input type= "text" name="Email" className = "form-control" ref = {Email} defaultValue = {user.Email} onChange = {(e) => handleInput(e, "Email")}/>
                                 {emailErr && <p className = "errors">{emailErr}</p>}
                             </div>
                             <div className = "col-sm-6">
-                                <label>Contact No<span className = "required">*</span></label>
+                                <label style={{color: theme==="Dark" ? "White" : "Black"}}>Contact No<span className = "required">*</span></label>
                                 <input type= "text" name="ContactNo" className = "form-control" ref= {ContactNo} defaultValue = {user.ContactNo} onChange = {(e) => handleInput(e, "ContactNo")}/>
                                 {contactErr && <p className = "errors">{contactErr}</p>}
-                                <label>Relationship<span className = "required">*</span></label>
+                                <label style={{color: theme==="Dark" ? "White" : "Black"}}>Relationship<span className = "required">*</span></label>
                                 <select className = "form-control" ref = {Relationship} defaultValue = {user.Relationshipwithme}>
                                     {RelationshipLists.map((r) => <option key={r.toString()} value = {r}>{r}</option>)}
                                 </select>
                             </div>
                         </div>
                             
-                        <label>Home Address<span className = "required">*</span></label>
+                        <label style={{color: theme==="Dark" ? "White" : "Black"}}>Home Address<span className = "required">*</span></label>
                         <input type= "text" name="homeAddress" className = "form-control" ref = {HomeAddress} defaultValue = {user.HomeAddress} onChange = {(e) => handleInput(e, "HomeAddress")}/>
                         {homeAddressErr && <p className = "errors">{homeAddressErr}</p>}
-                        <label>Office Address</label>
+                        <label style={{color: theme==="Dark" ? "White" : "Black"}}>Office Address</label>
                         <input type= "text" name="officeAddress" className = "form-control" ref = {OfficeAddress} defaultValue = {user.OfficeAddress}/>
                         <div className = "photographDetails">
                             <img className="profilepic" alt = "" src = {user['photograph'] ? user['photograph'] : image} id="profilePic"/><br />
-                            <label className="text-center">Photograph</label><br></br>
+                            <label style={{color: theme==="Dark" ? "White" : "Black"}} className="text-center">Photograph</label><br></br>
                             <input type="file" name="photograph" onInput = {setProfilePic} style={{margin: "0 auto", border: "1px solid lightgray"}} ref={Photograph}/>&nbsp;&nbsp;
                             {upload && <span>{upload}</span>}
                         </div>
@@ -240,15 +243,15 @@ function UpdateUser(props){
                     <Tab eventKey = "SocialMediaDetails" title="Social Media">
                     <div className = "SocialMediaDetails">
                         <div className="panel">
-                            <label>Instagram</label>
+                            <label style={{color: theme==="Dark" ? "White" : "Black"}}>Instagram</label>
                             <input type = "text" className = "form-control" ref = {Instagram} defaultValue = {user.Instagram}/>
                         </div>
                         <div className="panel">
-                            <label>Linkedin</label>
+                            <label style={{color: theme==="Dark" ? "White" : "Black"}}>Linkedin</label>
                             <input type = "text" className = "form-control" ref = {Linkedin} defaultValue = {user.Linkedin}/>
                         </div>
                         <div className="panel">
-                            <label>Facebook</label>
+                            <label style={{color: theme==="Dark" ? "White" : "Black"}}>Facebook</label>
                             <input type = "text" className = "form-control" ref = {Facebook} defaultValue = {user.Facebook}/>
                         </div>
                     </div>
@@ -256,11 +259,11 @@ function UpdateUser(props){
                     <Tab eventKey = "EventDetails" title="Events">
                         <div className = "EventDetails">
                             <div className="panel">
-                                <label>Birthday</label>
+                                <label style={{color: theme==="Dark" ? "White" : "Black"}}>Birthday</label>
                                 <input type = "date" className = "form-control" ref = {Birthday} defaultValue = {user.Birthday}/>
                             </div>
                             <div className="panel">
-                                <label>Anniversary</label>
+                                <label style={{color: theme==="Dark" ? "White" : "Black"}}>Anniversary</label>
                                 <input type = "date" className = "form-control" ref = {Anniversary} defaultValue = {user.Anniversary}/>
                             </div>
                         </div>

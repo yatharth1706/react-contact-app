@@ -3,13 +3,13 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import SocialMedia from './SocialMediaDetails';
 import Events from './EventDetails';
-import Loader from './Loader';
-import defaultPic from '../Assets/defaultPic.png';
-import CreatedModal from './CreatedModal';
-import User from './../DataModels/User';
+import Loader from '../Loader';
+import defaultPic from '../../Assets/defaultPic.png';
+import CreatedModal from '../Modals/CreatedModal';
+import User from '../../DataModels/User';
 import { trackPromise } from 'react-promise-tracker';
 import Axios from 'axios';
-import {storage} from '../Config/firebaseConfig'
+import {storage} from '../../Config/firebaseConfig'
 import 'firebase/storage';
 
 
@@ -39,7 +39,8 @@ class CreateForm extends Component{
                 homeAddress : ""
             },
             showModal : false,
-            upload : ""
+            upload : "",
+            theme : ""
         }
     }
     
@@ -116,7 +117,7 @@ class CreateForm extends Component{
         e.preventDefault();
         const formValues = this.state;
         let errors = this.state.errors;
-
+        
         if(this.state.Name.length === 0){
             errors.name = 'Name cannot be empty'
         }
@@ -135,9 +136,7 @@ class CreateForm extends Component{
         
     }
 
-    nextTab = (k) => (k) => {
-        this.toggleKey(k);
-    }
+
 
     setProfilePic = (e) => {
         
@@ -252,6 +251,36 @@ class CreateForm extends Component{
 
     RelationshipLists = ["Friend","Son","Daughter","Father","Mother","Brother","Sister","Uncle","Aunt","Cousin","Nephew","Niece","Husband","Wife","GrandParents","GrandChild","Other"];
 
+    validateForTabs = (k) => {
+        
+        let errors = this.state.errors;
+        let flag = false;
+        if(this.state.Name.length === 0){
+            errors.name = 'Name cannot be empty';
+            flag = true;
+        }
+        if(this.state.ContactNo.length === 0){
+            errors.contact = 'Contact cannot be empty';
+            flag = true;
+        }
+        if(this.state.Email.length === 0){
+            errors.email = 'Email cannot be empty';
+            flag = true;
+        }
+        if(this.state.HomeAddress.length === 0){
+            errors.homeAddress = 'Home Address cannot be empty';
+            flag = true;
+        }
+        this.setState({errors : errors})
+
+        if(flag === false){
+            
+        }
+    }
+
+    componentDidMount(){
+        this.setState({theme : window.localStorage.getItem("theme")});
+    }
 
     render(){
         return (
@@ -263,39 +292,39 @@ class CreateForm extends Component{
                     
                     <Loader />
                 {/* create three tabs and show three different forms on clicking on tabs */}
-                    <Tabs defaultActiveKey = {this.state.key} onSelect={(k) => this.toggleKey(k)}>
+                    <Tabs defaultActiveKey = {this.state.key} onSelect={(k) => this.validateForTabs(k)}>
                         <Tab eventKey = "PersonalDetails" title="Personal Information">
                             <div className = "PersonalDetails">
                                 <div className="row">
                                     <div className = "col-sm-6">
-                                        <label>Name<span className = "required">*</span></label>
+                                        <label style={{color: this.state.theme === "Dark" ? "White" : "Black"}}>Name<span className = "required">*</span></label>
                                         <input type= "text" name= "Name" className = "form-control" onChange = {(e) => this.handleInput(e,"Name")}/>
                                         {this.state.errors.name && <p className = "errors">{this.state.errors.name}</p>}
-                                        <label>Email<span className = "required">*</span></label>
+                                        <label style={{color: this.state.theme === "Dark" ? "White" : "Black"}}>Email<span className = "required">*</span></label>
                                         <input type= "text" name="Email" className = "form-control" onChange = {(e) => this.handleInput(e,"Email")}/>
                                         {this.state.errors.email && <p className = "errors">{this.state.errors.email}</p>}
                                         
                                     </div>
                                     <div className = "col-sm-6">
-                                        <label>Contact No<span className = "required">*</span></label>
+                                        <label style={{color: this.state.theme === "Dark" ? "White" : "Black"}}>Contact No<span className = "required">*</span></label>
                                         <input type= "text" name="ContactNo" className = "form-control" onChange = {(e) => this.handleInput(e,"ContactNo")}/>
                                         {this.state.errors.contact && <p className = "errors">{this.state.errors.contact}</p>}
-                                        <label>Relationship<span className = "required">*</span></label>
+                                        <label style={{color: this.state.theme === "Dark" ? "White" : "Black"}}>Relationship<span className = "required">*</span></label>
                                         <select className = "form-control" onChange = {(e) => this.handleInput(e,"Relationship")}>
                                             {this.RelationshipLists.map((r) => <option key={r.toString()} value = {r}>{r}</option>)}
                                         </select>
                                     </div>
                                 </div>
                                     
-                                <label>Home Address<span className = "required">*</span></label>
+                                <label style={{color: this.state.theme === "Dark" ? "White" : "Black"}}>Home Address<span className = "required">*</span></label>
                                 <input type= "text" name="homeAddress" className = "form-control" onChange = {(e) => this.handleInput(e,"HomeAddress")}/>
                                 {this.state.errors.homeAddress && <p className = "errors">{this.state.errors.homeAddress}</p>}
-                                <label>Office Address</label>
+                                <label style={{color: this.state.theme === "Dark" ? "White" : "Black"}}>Office Address</label>
                                 <input type= "text" name="officeAddress" className = "form-control" onChange = {(e) => this.handleInput(e,"OfficeAddress")}/>
                                 <div className = "photographDetails">
                                     <img className="profilepic" alt = "" src = {this.state.image}/><br />
                                     
-                                    <label className="text-center">Photograph</label><br></br>
+                                    <label style={{color: this.state.theme === "Dark" ? "White" : "Black"}} className="text-center">Photograph</label><br></br>
                                     <input type="file" name="photograph" id="photo" onInput = {this.setProfilePic} style={{margin: "0 auto", border: "1px solid lightgray"}}/>&nbsp;&nbsp;
                                     {this.state.upload && <span>Upload : {this.state.upload}</span>}
                                 </div>

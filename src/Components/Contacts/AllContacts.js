@@ -1,11 +1,14 @@
 import React from 'react';
 import Axios from 'axios';
 import UserInfoModal from './UserInfo';
-import DeleteConfirmation from './DeleteConfirmation';
-import contactIcon from '../Assets/contactIcon.png';
-import ExportModal from './ExportModal';
-import ImportModal from './ImportModal';
-import defaultPic from '../Assets/userPic.png';
+import DeleteConfirmation from '../Modals/DeleteConfirmation';
+import contactIcon from '../../Assets/contactIcon.png';
+import ExportModal from '../Modals/ExportModal';
+import ImportModal from '../Modals/ImportModal';
+import defaultPic from '../../Assets/userPic.png';
+import eyeIcon from '../../Assets/eyeIcon.png';
+import editIcon from '../../Assets/editIcon.png';
+import trashIcon from '../../Assets/trashIcon.png';
 
 class allContacts extends React.Component{
     
@@ -18,7 +21,8 @@ class allContacts extends React.Component{
             user : {},
             deleteModalShow : false,
             exportModal : false,
-            importModal : false
+            importModal : false,
+            theme : ''
         }
         
     }
@@ -34,6 +38,7 @@ class allContacts extends React.Component{
 
     componentDidMount(){
         this.showAllContacts();
+        this.setState({theme : window.localStorage.getItem("theme")});
     }
 
     deleteContact(id){
@@ -65,11 +70,11 @@ class allContacts extends React.Component{
     render(){
         return(
             <>
-                <main>
-                <h3 className = "subtitle ml-3 mb-3"><img src = {contactIcon} className = "mr-2" alt="logo"/>All Contacts </h3>      
+                <main className = {this.state.theme === "Dark" ? "darkText" : ""}>
+                <h3 className = "subtitle ml-2 mb-3" style={{color: this.state.theme === "Dark" ? "White" : "Black"}}><img src = {contactIcon} className = "mr-2" alt="logo"/>All Contacts </h3>      
                 <div className = "allContactsTable">
-                <table className = "table table-sm mt-2">
-                        <thead className = "thead-primary">
+                <table className = {this.state.theme === "Dark" ? "table mt-2 table-dark" : "table mt-2"}>
+                        <thead className = {this.state.theme === "Dark" ? "thead-dark" : ""}>
                             <tr>
                                 <th>Name</th>
                                 <th>Contact No</th>
@@ -82,14 +87,14 @@ class allContacts extends React.Component{
                                 <td><img src={user['photograph'] ? user['photograph'] : defaultPic} style={{width: "32px", height : "32px", borderRadius : "50%"}} alt="profile-pic"/>&nbsp;&nbsp;{user['Name']}</td>
                                 <td>{user['ContactNo']}</td>
                                 <td>{user['Email']}</td>
-                                <td><ion-icon name="eye-outline" style={{fontSize : "18px", color:"blue"}} onClick = {() => this.setModal(true, index)}></ion-icon>&nbsp;&nbsp;<a href={"/user/" + user['ID']} style={{color: "blue"}}><ion-icon name="create-outline" style={{fontSize : "18px"}}></ion-icon></a>&nbsp;&nbsp;<ion-icon name="trash-outline" className="icons" style={{color: "blue", fontSize : "18px"}} onClick = {()=>this.deleteContact(user['ID'])}></ion-icon></td>
+                                <td><ion-icon name="eye-outline" style={{fontSize : "18px", color: this.state.theme === "Dark" ? "white" : "Black"}} onClick = {() => this.setModal(true, index)}></ion-icon>&nbsp;&nbsp;<a href={"/user/" + user['ID']} style={{color: this.state.theme === "Dark" ? "white" : "Black"}}><ion-icon name="create-outline" style={{fontSize : "18px"}}></ion-icon></a>&nbsp;&nbsp;<ion-icon name="trash-outline" className="icons" style={{color: this.state.theme === "Dark" ? "white" : "Black", fontSize : "18px"}} onClick = {()=>this.deleteContact(user['ID'])}></ion-icon></td>
                             </tr>)}
                         </tbody>
                     </table>
                 </div>
-                <div style={{display : "flex", justifyContent : "flex-end"}}>
+                <div style={{display : "flex", justifyContent : "flex-start"}}>
                     <span className="btn btn-sm btn-secondary mt-5 createContactBtn" onClick = {() => this.setState({exportModal : true})}>Export Contacts</span>
-                    <span className="btn btn-sm btn-dark mt-5 ml-5 createContactBtn" onClick = {() => this.setState({importModal : true})}>Import Contacts</span>
+                    <span className={this.state.theme=== "Dark" ? "btn btn-sm btn-secondary mt-5 ml-5 createContactBtn" : "btn btn-sm btn-dark mt-5 ml-5 createContactBtn"} onClick = {() => this.setState({importModal : true})}>Import Contacts</span>
                     <a href="/user"><span className="btn btn-sm btn-primary mt-5 ml-5 createContactBtn">Create contact</span></a>
                 </div>          
 

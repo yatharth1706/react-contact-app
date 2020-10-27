@@ -5,6 +5,7 @@ const ContactDetails = ({prevForm, saveContactsState, submitForm,formId, groupNa
     const [contacts, setContacts] = useState([]);
     const [error, setError] = useState([]);
     const [contactIds, setContactIds] = useState([]);
+    const [theme, setTheme] = useState('');
 
     useEffect(() => {
         Axios.get("http://localhost:8082/api/contacts").then((results)=>{
@@ -54,12 +55,16 @@ const ContactDetails = ({prevForm, saveContactsState, submitForm,formId, groupNa
             submitForm();
         }
     }
+
+    useEffect(() => {
+        setTheme(window.localStorage.getItem("theme"));
+    },[])
     
     return(
         <>
             <div className = "contactDetails" style={{display : formId === 2 ? 'block' : 'none'}}>
                 <div className = "contactsInGroups" style={{marginBottom : "20px"}}>
-                    <p className = "ml-3 mb-4"><strong>Choose contacts:</strong></p>
+                    <p className = "ml-3 mb-4" ><strong style={{color: theme==="Dark" ? "White" : "Black"}}>Choose contacts:</strong></p>
                     <table className = "table">
                         <thead>
                             <tr>

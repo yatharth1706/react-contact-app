@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import defaultPic from '../Assets/defaultPic.png';
+import defaultPic from '../../Assets/defaultPic.png';
 
 function UserInfoModal({show, onHide, user}) {
     const [image, setImage] = useState(defaultPic);

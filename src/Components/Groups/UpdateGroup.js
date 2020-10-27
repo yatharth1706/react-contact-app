@@ -1,12 +1,13 @@
 import React from 'react';
 import Axios from 'axios';
-import defaultPic from '../Assets/defaultPic.png';
-import {storage} from '../Config/firebaseConfig';
+import defaultPic from '../../Assets/defaultPic.png';
+import {storage} from '../../Config/firebaseConfig';
 import 'firebase/storage';
-import UpdatedModal from './UpdatedModal';
+import UpdatedModal from '../Modals/UpdatedModal';
 
 class UpdateGroup extends React.Component{
     constructor(props){
+
         super(props);
         this.state = {
             formId : 1,
@@ -20,9 +21,11 @@ class UpdateGroup extends React.Component{
             upload : '',
             contacts : [],
             groupId : -1,
-            modalShow : false
+            modalShow : false,
+            theme : ''
         }
-        console.log();
+
+
         if(this.props.match.params.groupName){
             this.setState({update : true});
             Axios.get(`http://localhost:8082/api/Groups?groupName=${this.props.match.params.groupName}`).then((results) => {
@@ -35,6 +38,7 @@ class UpdateGroup extends React.Component{
     }
     
     componentDidMount(){
+        this.setState({theme : window.localStorage.getItem("theme")});
         Axios.get("http://localhost:8082/api/contacts").then((results)=>{
             this.setState({contacts : results.data});
             Axios.get(`http://localhost:8082/api/Groups?groupName=${this.state.groupName}`).then((results) => {
@@ -178,15 +182,15 @@ class UpdateGroup extends React.Component{
             <div style={{display:"flex", justifyContent : "flex-start"}}>
                 <a href="/groups"><ion-icon name="arrow-back-outline" style={{fontSize : "25px", width: "100px"}}></ion-icon></a>
             </div>
-            <p className = "text-center mt-5" style={{fontSize: "23px"}}>Update Group</p>
+            <p className = "text-center mt-5" style={{fontSize: "23px", color: this.state.theme === "Dark" ? "White" : "Black"}}>Update Group</p>
             <div className = "CreateGroupDiv">
                 <div className = "GroupDetailsForm" style={{display : this.state.formId === 1 ? 'block' : 'none'}}>
-                    <label>Group Name<span className = "required">*</span></label>
+                    <label style={{color: this.state.theme==="Dark" ? "White" : "Black"}}>Group Name<span className = "required">*</span></label>
                     <input type= "text" name= "Name" className = "form-control mb-4" onChange = {this.handleInput("GroupName")} defaultValue={this.state.groupInfo ? this.state.groupInfo.GroupName : ''}/>
                     {this.state.groupErr && <p style={{fontSize: "12px", color: "red"}}>{this.state.groupErr}</p>}
                     <div className="photographDetails">
                         <img className="profilepic" alt = "" src = {this.state.groupPhoto}/><br />
-                        <label className="text-center">Photograph</label><br></br>
+                        <label style={{color: this.state.theme==="Dark" ? "White" : "Black"}} className="text-center">Photograph</label><br></br>
                         <input type="file" name="photograph" onInput = {this.setProfilePic} style={{margin: "0 auto", border: "1px solid lightgray"}}/>
                             &nbsp;&nbsp;{this.state.upload !== '' && <span>{this.state.upload}</span>}
                     </div>
@@ -198,7 +202,7 @@ class UpdateGroup extends React.Component{
 
                 <div className = "contactDetails" style={{display : this.state.formId === 2 ? 'block' : 'none'}}>
                 <div className = "contactsInGroups" style={{marginBottom : "20px"}}>
-                    <p className = "ml-3 mb-4"><strong>Choose contacts:</strong></p>
+                    <p className = "ml-3 mb-4"><strong style={{color: this.state.theme==="Dark" ? "White" : "Black"}}>Choose contacts:</strong></p>
                     <table className = "table">
                         <thead>
                             <tr>

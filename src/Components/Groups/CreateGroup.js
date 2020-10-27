@@ -2,7 +2,7 @@ import React from 'react';
 import GroupDetails from './GroupDetails';
 import ContactDetails from './ContactDetails';
 import Axios from 'axios';
-import CreatedModal from './CreatedModal';
+import CreatedModal from '../Modals/CreatedModal';
 
 class CreateGroup extends React.Component{
     constructor(){
@@ -12,7 +12,8 @@ class CreateGroup extends React.Component{
             groupName : '',
             groupPhoto : '',
             contactIds : [],
-            showModal : false
+            showModal : false,
+            theme : ''
         }
     }
     
@@ -32,6 +33,10 @@ class CreateGroup extends React.Component{
 
     saveContactsState = (contactIDS) => {
         this.setState({contactIds : contactIDS});
+    }
+
+    componentDidMount(){
+        this.setState({theme : window.localStorage.getItem("theme")});
     }
 
     submitForm = () => {
@@ -62,7 +67,7 @@ class CreateGroup extends React.Component{
             <div style={{display:"flex", justifyContent : "flex-start"}}>
                 <a href="/groups"><ion-icon name="arrow-back-outline" style={{fontSize : "25px", width: "100px"}}></ion-icon></a>
             </div>
-            <p className = "text-center mt-5" style={{fontSize: "23px"}}>Add Group</p>
+            <p className = "text-center mt-5" style={{fontSize: "23px", color : this.state.theme==="Dark" ? "White" : "Black"}}>Add Group</p>
             <div className = "CreateGroupDiv">
                 
                 <GroupDetails formId = {this.state.formId} nextForm = {this.nextForm} saveGroupDetails={this.saveGroupDetails}/>

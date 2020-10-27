@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Moment from 'moment';
-import AllGroups from '../Assets/allGroups.png';
+import AllGroups from '../../Assets/groupsIcon.png';
 import GroupDeleteConfirmation from './DeleteGroup';
 
 const Groups = () => {
@@ -11,8 +11,10 @@ const Groups = () => {
     const [contacts, setContacts] = useState([]);
     const [deleteGroupModal, setDeleteGroupModal] = useState(false);
     const [groupInfo, setGroupInfo] = useState({});
+    const [theme, setTheme] = useState('');
 
     useEffect(() => {
+        setTheme(window.localStorage.getItem("theme"));
         Axios.get("http://localhost:8082/api/groups").then((results) => {
             setGroups(results.data);
             console.log(results);
@@ -66,10 +68,10 @@ const Groups = () => {
     return (
        
         <div className = "allGroups">
-            <h3 className = "ml-3 mb-2 subtitle"><img src = {AllGroups} className = "mr-2" alt="logo" width="35px" height="35px" />All Groups</h3>
+            <h3 className = "ml-2 mb-2 subtitle" style={{color: theme === "Dark" ? "White" : "Black"}}><img src = {AllGroups} className = "mr-2" alt="logo" width="35px" height="35px" />All Groups</h3>
             <div className = "allGroupsDiv">
-            <table className = "table mt-2">
-                <thead>
+            <table className = {theme === "Dark" ? "table mt-2 table-dark" : "table mt-2"}>
+                <thead className = {theme === "Dark" ? "thead-dark" : ""}>
                     <tr>
                         <th>ID</th>
                         <th>GroupName</th>
@@ -82,13 +84,13 @@ const Groups = () => {
                         <td className="groupsData">{group.ID}</td>
                         <td className="groupsData">{group.GroupName}</td>
                         <td className="groupsData">{Moment(group.CreatedAt).format('YYYY-MM-DD hh:mm')}</td>
-                        <td><ion-icon name="eye-outline" style={{fontSize : "18px", color:"blue"}} onClick={() => showContactsModal(group.ID, group.GroupName)} ></ion-icon>&nbsp;&nbsp;<a href={"/groups/update/" + group.GroupName} style={{color: "blue"}} ><ion-icon name="create-outline" style={{fontSize : "18px"}}></ion-icon></a>&nbsp;&nbsp;<ion-icon name="trash-outline" className="icons" style={{color: "blue", fontSize : "18px"}} onClick = {() => deleteGroup(group.ID)} ></ion-icon></td>
+                        <td><ion-icon name="eye-outline" style={{fontSize : "18px", color: theme === "Dark" ? "white" : "Black"}} onClick={() => showContactsModal(group.ID, group.GroupName)} ></ion-icon>&nbsp;&nbsp;<a href={"/groups/update/" + group.GroupName} style={{color: theme === "Dark" ? "white" : "Black"}} ><ion-icon name="create-outline" style={{fontSize : "18px"}}></ion-icon></a>&nbsp;&nbsp;<ion-icon name="trash-outline" className="icons" style={{color: theme === "Dark" ? "white" : "Black", fontSize : "18px"}} onClick = {() => deleteGroup(group.ID)} ></ion-icon></td>
                     </tr>)}
                 </tbody>
             </table>   
             </div>   
-            <div style={{display : "flex", justifyContent : "flex-end"}}>
-                <a href="/groups/create"><span className="btn btn-sm btn-primary mt-5 createContactBtn">Create Group</span></a>
+            <div style={{display : "flex", justifyContent : "flex-start"}}>
+                <a href="/groups/create"><span className="btn btn-sm btn-primary createContactBtn">Create Group</span></a>
 
             </div>
             <div className = "ContactsInGroups"  style={{display : showContacts === true ? 'block' : 'none'}}> 
