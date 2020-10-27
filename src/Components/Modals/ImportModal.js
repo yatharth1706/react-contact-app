@@ -82,7 +82,7 @@ const ImportModal = ({importModal, hideModal}) => {
                 <button className="delete" onClick = {hideModal}></button>
             </div>
             <div className = "text-center">
-                <input type="file" className="mb-5" onChange = {convertCSVToArray} style={{border: "1px solid black"}}/>
+                <input type="file" className="mb-1" onChange = {convertCSVToArray} style={{border: "1px solid black"}}/>
             </div>
             <div className = "previewTable mb-5" style={{ height: importedContacts.length=== 0 ? "0px" : "300px"}}>
                 <p className="text-center"><strong>Preview:</strong></p>
